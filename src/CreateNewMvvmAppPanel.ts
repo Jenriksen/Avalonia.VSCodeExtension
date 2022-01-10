@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { AvaloniaNewProjectManager } from "./AvaloniaNewProjectManager";
 import { getNonce } from "./getNonce";
 
 export class CreateNewMvvmAppPanel {
@@ -9,7 +10,7 @@ export class CreateNewMvvmAppPanel {
 
   public static readonly viewType = "CreateNewMvvmApp";
 
-  private readonly _panel: vscode.WebviewPanel;
+  public static _panel: vscode.WebviewPanel;
   private readonly _extensionUri: vscode.Uri;
   private _disposables: vscode.Disposable[] = [];
 
@@ -20,7 +21,7 @@ export class CreateNewMvvmAppPanel {
 
     // If we already have a panel, show it.
     if (CreateNewMvvmAppPanel.currentPanel) {
-      CreateNewMvvmAppPanel.currentPanel._panel.reveal(column);
+      CreateNewMvvmAppPanel._panel.reveal(column);
       CreateNewMvvmAppPanel.currentPanel._update();
       return;
     }
@@ -55,7 +56,7 @@ export class CreateNewMvvmAppPanel {
   }
 
   private constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri) {
-    this._panel = panel;
+    CreateNewMvvmAppPanel._panel = panel;
     this._extensionUri = extensionUri;
 
     // Set the webview's initial html content
@@ -63,7 +64,7 @@ export class CreateNewMvvmAppPanel {
 
     // Listen for when the panel is disposed
     // This happens when the user closes the panel or when the panel is closed programatically
-    this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
+    CreateNewMvvmAppPanel._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
     // // Handle messages from the webview
     // this._panel.webview.onDidReceiveMessage(
@@ -83,7 +84,7 @@ export class CreateNewMvvmAppPanel {
     CreateNewMvvmAppPanel.currentPanel = undefined;
 
     // Clean up our resources
-    this._panel.dispose();
+    CreateNewMvvmAppPanel._panel.dispose();
 
     while (this._disposables.length) {
       const x = this._disposables.pop();
@@ -94,11 +95,25 @@ export class CreateNewMvvmAppPanel {
   }
 
   private async _update() {
-    const webview = this._panel.webview;
+    const webview = CreateNewMvvmAppPanel._panel.webview;
 
-    this._panel.webview.html = this._getHtmlForWebview(webview);
+    CreateNewMvvmAppPanel._panel.webview.html = this._getHtmlForWebview(webview);
     webview.onDidReceiveMessage(async (data) => {
       switch (data.type) {
+        case "onCreateMvvmApp": {
+          if (!data.value) {
+            return;
+          }
+
+          // vscode.window.showInformationMessage("Creating MVVM App " + data.value.projectName);
+          AvaloniaNewProjectManager.getInstance().createMvvmApp(
+            data.value.projectName, 
+            data.value.projectPath, 
+            data.value.solutionName 
+          );
+
+          break;
+        }
         case "onInfo": {
           if (!data.value) {
             return;

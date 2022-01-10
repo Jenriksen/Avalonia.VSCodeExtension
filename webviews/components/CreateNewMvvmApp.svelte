@@ -24,18 +24,33 @@
 </style>
 
 <script lang="ts">
-    // import * as vscode from "vscode";
+    import { onMount } from "svelte";
+
 
     function createProject() {
         tsvscode.postMessage({
-            type: "onInfo",
-            value: "Creating the Avalonia MVVM App " + projectName,
+            type: "onCreateMvvmApp",
+            value: { projectName: projectName, projectPath: projectPath, solutionName: solutionName }
         });
     }
+
+    onMount(() => {
+        window.addEventListener("message", (event) => {
+            const message = event.data;
+
+            switch(message.type) {
+                case "setHomeFolder":
+                    projectPath = message.value;
+                    break;
+            }
+        });
+    });
 
     let projectName = "";
     let solutionName = "";
     let projectPath = "";
+
+    // let projectPath = process.env.HOME;
 </script>
 
 <div class="center">
@@ -71,6 +86,6 @@
         }}>Create</button>
     </div> -->
 
-    <div>project name: {projectName}</div>
+    <!-- <div>project name: {projectName}</div> -->
 </div>
 

@@ -4,7 +4,7 @@ import { AvaloniaProjectProvider } from './AvaloniaProjectProvider';
 
 export function activate(context: vscode.ExtensionContext) 
 {
-	AvaloniaNewProjectManager.Register(context);
+	AvaloniaNewProjectManager.register(context);
 
 	const projectManagementCommands = new AvaloniaProjectProvider();
 	vscode.window.registerTreeDataProvider("avalonia-sidebar", projectManagementCommands);
