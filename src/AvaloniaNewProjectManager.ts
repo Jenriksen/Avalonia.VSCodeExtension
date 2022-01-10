@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { CreateNewAppPanel } from './CreateNewAppPanel';
+import { CreateNewCrossAppPanel } from './CreateNewCrossAppPanel';
 import { CreateNewMvvmAppPanel } from './CreateNewMvvmAppPanel';
 import { ExecuteOnTerminal } from './ExecuteOnTerminal';
 
@@ -47,6 +48,20 @@ export class AvaloniaNewProjectManager {
                 }
             )
         );
+
+        context.subscriptions.push(
+            vscode.commands.registerCommand(
+                "Avalonia.VSCode.Extension.CreateNewCrossPlatformApp", 
+                () => {
+                    CreateNewCrossAppPanel.createOrShow(context.extensionUri);
+
+                    CreateNewCrossAppPanel._panel.webview.postMessage({
+                        type: "setHomeFolder",
+                        value: process.env.HOME
+                    });
+                }
+            )
+        );
     }
 
     public async createMvvmApp(
@@ -82,6 +97,24 @@ export class AvaloniaNewProjectManager {
             ["new", "avalonia.app", "-o", combinedProjectPath]);
 
         vscode.window.showInformationMessage("Avalonia App " + projectName + " created successfully");
+        vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(combinedProjectPath), false);
+    }
+
+    public async createCrossApp(
+        projectName: string, 
+        projectPath: string, 
+        solutionName: string) {
+
+        vscode.window.showInformationMessage("Creating Avalonia Cross Platform Application");
+
+        await this.installAvaloniaTemplates();
+
+        var combinedProjectPath = this.pathJoin([projectPath, projectName], "/");
+        await this.executeDotnetWithArgs(
+            "Create App",
+            ["new", "avalonia.xplat", "-o", combinedProjectPath]);
+
+        vscode.window.showInformationMessage("Avalonia Cross Platform Applçication " + projectName + " created successfully");
         vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(combinedProjectPath), false);
     }
 

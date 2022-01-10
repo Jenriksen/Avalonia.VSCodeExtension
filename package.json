@@ -12,6 +12,7 @@
   "activationEvents": [
     "onCommand:Avalonia.VSCode.Extension.CreateNewMvvmApp",
     "onCommand:Avalonia.VSCode.Extension.CreateNewAvaloniaApp",
+    "onCommand:Avalonia.VSCode.Extension.CreateNewCrossPlatformApp",
     "onView:avalonia-sidebar"
   ],
   "main": "./out/extension.js",
@@ -43,6 +44,11 @@
         "command": "Avalonia.VSCode.Extension.CreateNewAvaloniaApp",
         "category": "Avalonia",
         "title": "Create Avalonia .NET Core App"
+      },
+      {
+        "command": "Avalonia.VSCode.Extension.CreateNewCrossPlatformApp",
+        "category": "Avalonia",
+        "title": "Create Avalonia Cross Platform .NET Core Application"
       }
     ]
   },
