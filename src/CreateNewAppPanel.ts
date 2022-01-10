@@ -2,13 +2,13 @@ import * as vscode from "vscode";
 import { AvaloniaNewProjectManager } from "./AvaloniaNewProjectManager";
 import { getNonce } from "./getNonce";
 
-export class CreateNewMvvmAppPanel {
+export class CreateNewAppPanel {
   /**
    * Track the currently panel. Only allow a single panel to exist at a time.
    */
-  public static currentPanel: CreateNewMvvmAppPanel | undefined;
+  public static currentPanel: CreateNewAppPanel | undefined;
 
-  public static readonly viewType = "CreateNewMvvmApp";
+  public static readonly viewType = "CreateNewApp";
 
   public static _panel: vscode.WebviewPanel;
   private readonly _extensionUri: vscode.Uri;
@@ -20,15 +20,15 @@ export class CreateNewMvvmAppPanel {
       : undefined;
 
     // If we already have a panel, show it.
-    if (CreateNewMvvmAppPanel.currentPanel) {
-      CreateNewMvvmAppPanel._panel.reveal(column);
-      CreateNewMvvmAppPanel.currentPanel._update();
+    if (CreateNewAppPanel.currentPanel) {
+      CreateNewAppPanel._panel.reveal(column);
+      CreateNewAppPanel.currentPanel._update();
       return;
     }
 
     // Otherwise, create a new panel.
     const panel = vscode.window.createWebviewPanel(
-      CreateNewMvvmAppPanel.viewType,
+      CreateNewAppPanel.viewType,
       "Create new Avalonia project",
       column || vscode.ViewColumn.One,
       {
@@ -43,20 +43,20 @@ export class CreateNewMvvmAppPanel {
       }
     );
 
-    CreateNewMvvmAppPanel.currentPanel = new CreateNewMvvmAppPanel(panel, extensionUri);
+    CreateNewAppPanel.currentPanel = new CreateNewAppPanel(panel, extensionUri);
   }
 
   public static kill() {
-    CreateNewMvvmAppPanel.currentPanel?.dispose();
-    CreateNewMvvmAppPanel.currentPanel = undefined;
+    CreateNewAppPanel.currentPanel?.dispose();
+    CreateNewAppPanel.currentPanel = undefined;
   }
 
   public static revive(panel: vscode.WebviewPanel, extensionUri: vscode.Uri) {
-    CreateNewMvvmAppPanel.currentPanel = new CreateNewMvvmAppPanel(panel, extensionUri);
+    CreateNewAppPanel.currentPanel = new CreateNewAppPanel(panel, extensionUri);
   }
 
   private constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri) {
-    CreateNewMvvmAppPanel._panel = panel;
+    CreateNewAppPanel._panel = panel;
     this._extensionUri = extensionUri;
 
     // Set the webview's initial html content
@@ -64,7 +64,7 @@ export class CreateNewMvvmAppPanel {
 
     // Listen for when the panel is disposed
     // This happens when the user closes the panel or when the panel is closed programatically
-    CreateNewMvvmAppPanel._panel.onDidDispose(() => this.dispose(), null, this._disposables);
+    CreateNewAppPanel._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
     // // Handle messages from the webview
     // this._panel.webview.onDidReceiveMessage(
@@ -81,10 +81,10 @@ export class CreateNewMvvmAppPanel {
   }
 
   public dispose() {
-    CreateNewMvvmAppPanel.currentPanel = undefined;
+    CreateNewAppPanel.currentPanel = undefined;
 
     // Clean up our resources
-    CreateNewMvvmAppPanel._panel.dispose();
+    CreateNewAppPanel._panel.dispose();
 
     while (this._disposables.length) {
       const x = this._disposables.pop();
@@ -95,17 +95,17 @@ export class CreateNewMvvmAppPanel {
   }
 
   private async _update() {
-    const webview = CreateNewMvvmAppPanel._panel.webview;
+    const webview = CreateNewAppPanel._panel.webview;
 
-    CreateNewMvvmAppPanel._panel.webview.html = this._getHtmlForWebview(webview);
+    CreateNewAppPanel._panel.webview.html = this._getHtmlForWebview(webview);
     webview.onDidReceiveMessage(async (data) => {
       switch (data.type) {
-        case "onCreateMvvmApp": {
+        case "onCreateApp": {
           if (!data.value) {
             return;
           }
 
-          AvaloniaNewProjectManager.getInstance().createMvvmApp(
+          AvaloniaNewProjectManager.getInstance().createApp(
             data.value.projectName, 
             data.value.projectPath, 
             data.value.solutionName 
@@ -134,7 +134,7 @@ export class CreateNewMvvmAppPanel {
   private _getHtmlForWebview(webview: vscode.Webview) {
     // // And the uri we use to load this script in the webview
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "CreateNewMvvmApp.js")
+      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "CreateNewApp.js")
     );
 
     // Local path to css styles
@@ -153,7 +153,7 @@ export class CreateNewMvvmAppPanel {
     const stylesResetUri = webview.asWebviewUri(styleResetPath);
     const stylesMainUri = webview.asWebviewUri(stylesPathMainPath);
     const cssUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "CreateNewMvvmApp.css")
+      vscode.Uri.joinPath(this._extensionUri, "out/compiled", "CreateNewApp.css")
     );
 
     // Use a nonce to only allow specific scripts to be run

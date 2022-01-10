@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { CreateNewAppPanel } from './CreateNewAppPanel';
 import { CreateNewMvvmAppPanel } from './CreateNewMvvmAppPanel';
 import { ExecuteOnTerminal } from './ExecuteOnTerminal';
 
@@ -32,6 +33,20 @@ export class AvaloniaNewProjectManager {
                 }
             )
         );
+
+        context.subscriptions.push(
+            vscode.commands.registerCommand(
+                "Avalonia.VSCode.Extension.CreateNewAvaloniaApp", 
+                () => {
+                    CreateNewAppPanel.createOrShow(context.extensionUri);
+
+                    CreateNewAppPanel._panel.webview.postMessage({
+                        type: "setHomeFolder",
+                        value: process.env.HOME
+                    });
+                }
+            )
+        );
     }
 
     public async createMvvmApp(
@@ -49,6 +64,24 @@ export class AvaloniaNewProjectManager {
             ["new", "avalonia.mvvm", "-o", combinedProjectPath]);
 
         vscode.window.showInformationMessage("Avalonia MVVM App " + projectName + " created successfully");
+        vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(combinedProjectPath), false);
+    }
+
+    public async createApp(
+        projectName: string, 
+        projectPath: string, 
+        solutionName: string) {
+
+        vscode.window.showInformationMessage("Creating Avalonia App");
+
+        await this.installAvaloniaTemplates();
+
+        var combinedProjectPath = this.pathJoin([projectPath, projectName], "/");
+        await this.executeDotnetWithArgs(
+            "Create App",
+            ["new", "avalonia.app", "-o", combinedProjectPath]);
+
+        vscode.window.showInformationMessage("Avalonia App " + projectName + " created successfully");
         vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(combinedProjectPath), false);
     }
 

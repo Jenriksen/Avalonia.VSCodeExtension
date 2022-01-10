@@ -11,6 +11,7 @@
   ],
   "activationEvents": [
     "onCommand:Avalonia.VSCode.Extension.CreateNewMvvmApp",
+    "onCommand:Avalonia.VSCode.Extension.CreateNewAvaloniaApp",
     "onView:avalonia-sidebar"
   ],
   "main": "./out/extension.js",
@@ -36,7 +37,12 @@
       {
         "command": "Avalonia.VSCode.Extension.CreateNewMvvmApp",
         "category": "Avalonia",
-        "title": "Create .NET Core MVVM App"
+        "title": "Create Avalonia .NET Core MVVM App"
+      },
+      {
+        "command": "Avalonia.VSCode.Extension.CreateNewAvaloniaApp",
+        "category": "Avalonia",
+        "title": "Create Avalonia .NET Core App"
       }
     ]
   },
