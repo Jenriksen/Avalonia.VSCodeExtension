@@ -1,6 +1,6 @@
 {
-  "name": "avaloniaxamlcompletion",
-  "displayName": "AvaloniaXamlCompletion",
+  "name": "avalonia.vscode.extension",
+  "displayName": "Avalonia.VSCode.Extension",
   "description": "Bring Avalonia Xaml code completion to VSCode",
   "version": "0.0.1",
   "engines": {
@@ -10,7 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:avaloniaxamlcompletion.CreateNewMvvmApp",
+    "onCommand:Avalonia.VSCode.Extension.CreateNewMvvmApp",
     "onView:avalonia-sidebar"
   ],
   "main": "./out/extension.js",
@@ -34,7 +34,7 @@
     },
     "commands": [
       {
-        "command": "avaloniaxamlcompletion.CreateNewMvvmApp",
+        "command": "Avalonia.VSCode.Extension.CreateNewMvvmApp",
         "category": "Avalonia",
         "title": "Create .NET Core MVVM App"
       }

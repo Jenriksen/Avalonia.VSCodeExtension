@@ -10,7 +10,7 @@ export class AvaloniaNewProjectManager {
 
         context.subscriptions.push(
             vscode.commands.registerCommand(
-                "avaloniaxamlcompletion.CreateNewMvvmApp", 
+                "Avalonia.VSCode.Extension.CreateNewMvvmApp", 
                 () => {
                     CreateNewMvvmAppPanel.createOrShow(context.extensionUri);
                 }
