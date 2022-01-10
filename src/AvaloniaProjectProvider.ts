@@ -56,7 +56,7 @@ export class AvaloniaProjectProvider implements vscode.TreeDataProvider<vscode.T
             "",
             vscode.TreeItemCollapsibleState.None,
             {
-                command: "createAvaloniaXplat",
+                command: "Avalonia.VSCode.Extension.CreateNewCrossPlatformApp",
                 title: "",
                 arguments: []
             },
