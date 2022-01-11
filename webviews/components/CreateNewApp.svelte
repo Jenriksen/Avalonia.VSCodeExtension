@@ -68,24 +68,13 @@
         <input bind:value="{projectPath}" />
     </div>
 
-    <div class="rowElement">
+    <!-- <div class="rowElement">
         <div class="elementText">Suggested Solution name</div>
         <input bind:value="{solutionName}" />
-    </div>
+    </div> -->
 
     <div class="rowButton">
         <button on:click={createProject}>Create</button>
     </div>
-
-    <!-- <div class="rowButton">
-        <button on:click={() => {
-            tsvscode.postMessage({
-                type: "onInfo",
-                value: "Creating the Avalonia MVVM App " + projectName
-            })
-        }}>Create</button>
-    </div> -->
-
-    <!-- <div>project name: {projectName}</div> -->
 </div>
 

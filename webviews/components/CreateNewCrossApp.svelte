@@ -68,24 +68,29 @@
         <input bind:value="{projectPath}" />
     </div>
 
-    <div class="rowElement">
+    <!-- <div class="rowElement">
         <div class="elementText">Suggested Solution name</div>
         <input bind:value="{solutionName}" />
-    </div>
+    </div> -->
 
     <div class="rowButton">
         <button on:click={createProject}>Create</button>
     </div>
 
-    <!-- <div class="rowButton">
-        <button on:click={() => {
-            tsvscode.postMessage({
-                type: "onInfo",
-                value: "Creating the Avalonia MVVM App " + projectName
-            })
-        }}>Create</button>
-    </div> -->
-
-    <!-- <div>project name: {projectName}</div> -->
+    <div>
+        <br />
+        <br />
+        <h2>NOTE:</h2> 
+        <p>Please make sure that <b>wasm-tools</b> workload are installed in your system.</p>
+        <br />
+        <h2>Windows</h2>
+        <p>C:\ dotnet workload install wasm-tools</p>
+        <br />
+        <h2>Linux</h2>
+        <p># sudo dotnet workload install wasm-tools</p>
+        <br />
+        <h2>Mac</h2>
+        <p># sudo dotnet workload install wasm-tools</p>
+    </div>
 </div>
 
