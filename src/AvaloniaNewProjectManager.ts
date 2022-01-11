@@ -69,17 +69,11 @@ export class AvaloniaNewProjectManager {
         projectPath: string, 
         solutionName: string) {
 
-        vscode.window.showInformationMessage("Creating Avalonia MVVM App");
-
-        await this.installAvaloniaTemplates();
-
-        var combinedProjectPath = this.pathJoin([projectPath, projectName], "/");
-        await this.executeDotnetWithArgs(
-            "Create MVVM App",
-            ["new", "avalonia.mvvm", "-o", combinedProjectPath]);
-
-        vscode.window.showInformationMessage("Avalonia MVVM App " + projectName + " created successfully");
-        vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(combinedProjectPath), false);
+        this.createGenericApp(
+            "Creating Avalonia MVVM Application", 
+            projectName,
+            projectPath,
+            "avalonia.mvvm");
     }
 
     public async createApp(
@@ -87,17 +81,11 @@ export class AvaloniaNewProjectManager {
         projectPath: string, 
         solutionName: string) {
 
-        vscode.window.showInformationMessage("Creating Avalonia App");
-
-        await this.installAvaloniaTemplates();
-
-        var combinedProjectPath = this.pathJoin([projectPath, projectName], "/");
-        await this.executeDotnetWithArgs(
-            "Create App",
-            ["new", "avalonia.app", "-o", combinedProjectPath]);
-
-        vscode.window.showInformationMessage("Avalonia App " + projectName + " created successfully");
-        vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(combinedProjectPath), false);
+        this.createGenericApp(
+            "Creating Avalonia Application", 
+            projectName,
+            projectPath,
+            "avalonia.app");
     }
 
     public async createCrossApp(
@@ -105,23 +93,36 @@ export class AvaloniaNewProjectManager {
         projectPath: string, 
         solutionName: string) {
 
-        vscode.window.showInformationMessage("Creating Avalonia Cross Platform Application");
-
-        await this.installAvaloniaTemplates();
-
-        var combinedProjectPath = this.pathJoin([projectPath, projectName], "/");
-        await this.executeDotnetWithArgs(
-            "Create App",
-            ["new", "avalonia.xplat", "-o", combinedProjectPath]);
-
-        vscode.window.showInformationMessage("Avalonia Cross Platform Applçication " + projectName + " created successfully");
-        vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(combinedProjectPath), false);
+        this.createGenericApp(
+            "Creating Avalonia Cross Platform Application", 
+            projectName,
+            projectPath,
+            "avalonia.xplat");
     }
 
     private async installAvaloniaTemplates() {
         return await this.executeDotnetWithArgs(
             "Install Avalonia Templates",
             ["new", "--install", "Avalonia.Templates" ]);
+    }
+
+    private async createGenericApp(
+        initialInformationMessage: string, 
+        projectName: string,
+        projectPath: string, 
+        avaloniaTemplateName: string) {
+
+        var path = require('path');
+        vscode.window.showInformationMessage(initialInformationMessage);
+
+        await this.installAvaloniaTemplates();
+
+        var combinedProjectPath = path.join( projectPath, projectName);
+        await this.executeDotnetWithArgs(
+            "",
+            ["new", avaloniaTemplateName, "-o", combinedProjectPath]);
+
+        vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(combinedProjectPath), false);
     }
 
     private async executeDotnetWithArgs(actionDescription: string, args: string[]) {
@@ -138,18 +139,4 @@ export class AvaloniaNewProjectManager {
 
         return true;
     }
-
-    private pathJoin(parts: string[], sep: string): string {
-        const separator = sep || '/';
-        parts = parts.map((part, index)=>{
-            if (index) {
-                part = part.replace(new RegExp('^' + separator), '');
-            }
-            if (index !== parts.length - 1) {
-                part = part.replace(new RegExp(separator + '$'), '');
-            }
-            return part;
-        })
-        return parts.join(separator);
-     }
 }
