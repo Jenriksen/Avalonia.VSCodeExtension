@@ -68,7 +68,7 @@
             },
             {
               "xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
-              "xsdUri": "https://raw.githubusercontent.com/rogalmic/vscode-xml-complete/master/test/Wpf/Wpf.xsd"
+              "xsdUri": "https://github.com/aboimpinto/Avalonia.VSCodeExtension/blob/master/xsd/Wpf.xsd"
             },
             {
               "xmlns": "http://www.w3.org/2000/svg",
