@@ -1,15 +1,30 @@
 {
   "name": "avalonia.vscode.extension",
   "displayName": "Avalonia.VSCode.Extension",
-  "description": "Bring Avalonia Xaml code completion to VSCode",
+  "description": "Create projects using Avalonia templates; Avalonia AXAML code-completion.",
   "version": "0.0.1",
+  "publisher": "PauloAboimPinto",
   "engines": {
     "vscode": "^1.63.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages",
+    "Linters"
+  ],
+  "keywords": [
+    "xml",
+    "xaml",
+    "avalonia",
+    "wpf",
+    "xsd",
+    "completion",
+    "linter",
+    "lint",
+    "format",
+    "msbuild"
   ],
   "activationEvents": [
+    "onLanguage:xml",
     "onCommand:Avalonia.VSCode.Extension.CreateNewMvvmApp",
     "onCommand:Avalonia.VSCode.Extension.CreateNewAvaloniaApp",
     "onCommand:Avalonia.VSCode.Extension.CreateNewCrossPlatformApp",
@@ -17,6 +32,56 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "languages": [
+      {
+        "id": "xml",
+        "configuration": "./src/language-configuration.json"
+      }
+    ],
+    "configuration": {
+      "title": "AxamlComplete",
+      "type": "object",
+      "properties": {
+        "axamlComplete.formattingStyle": {
+          "description": "Defines if attributes should be single line or not.",
+          "type": "string",
+          "enum": [
+            "singleLineAttributes",
+            "multiLineAttributes",
+            "fileSizeOptimized"
+          ],
+          "scope": "resource",
+          "default": []
+        },
+        "axamlComplete.schemaMapping": {
+          "description": "Maps xmlns to xsd location Uri.",
+          "type": "array",
+          "scope": "resource",
+          "default": [
+            {
+              "xmlns": "http://www.w3.org/2001/XMLSchema",
+              "xsdUri": "https://www.w3.org/2001/XMLSchema.xsd"
+            },
+            {
+              "xmlns": "https://github.com/avaloniaui",
+              "xsdUri": "https://raw.githubusercontent.com/rogalmic/vscode-xml-complete/master/test/Avalonia/AvaloniaXamlSchema.xsd"
+            },
+            {
+              "xmlns": "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+              "xsdUri": "https://raw.githubusercontent.com/rogalmic/vscode-xml-complete/master/test/Wpf/Wpf.xsd"
+            },
+            {
+              "xmlns": "http://www.w3.org/2000/svg",
+              "xsdUri": "https://raw.githubusercontent.com/dumistoklus/svg-xsd-schema/master/svg.xsd https://raw.githubusercontent.com/dumistoklus/svg-xsd-schema/master/xlink.xsd https://raw.githubusercontent.com/dumistoklus/svg-xsd-schema/master/namespace.xsd"
+            },
+            {
+              "xmlns": "http://schemas.microsoft.com/developer/msbuild/2003",
+              "xsdUri": "https://raw.githubusercontent.com/Microsoft/msbuild/master/src/MSBuild/MSBuild/Microsoft.Build.CommonTypes.xsd https://raw.githubusercontent.com/Microsoft/msbuild/master/src/MSBuild/MSBuild/Microsoft.Build.Core.xsd"
+            }
+          ]
+        }
+      }
+    },
     "views": {
       "avalonia-sidebar-view": [
         {
@@ -86,5 +151,11 @@
     "svelte-check": "^2.2.11",
     "svelte-preprocess": "^4.10.1",
     "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "get-uri": "^4.0.0",
+    "sax": "^1.2.4",
+    "vscode-cache": "^0.3.0",
+    "vscode-languageclient": "^7.0.0"
   }
 }

@@ -113,7 +113,7 @@ export class AvaloniaNewProjectManager {
         avaloniaTemplateName: string) {
 
         var path = require('path');
-        vscode.window.showInformationMessage(initialInformationMessage);
+        vscode.window.showInformationMessage(initialInformationMessage); 
 
         await this.installAvaloniaTemplates();
 
@@ -129,7 +129,7 @@ export class AvaloniaNewProjectManager {
         var dotnetPath = await ExecuteOnTerminal.getDotnetPath();
         if (dotnetPath === undefined)
         {
-            vscode.window.showErrorMessage("Cannot create Avalonia MVVM App. Plase install 'dotnet' first.");
+            vscode.window.showErrorMessage("'dotnet' command not installed in the system. Plase install 'dotnet' first.");
             return false;
         }
 
