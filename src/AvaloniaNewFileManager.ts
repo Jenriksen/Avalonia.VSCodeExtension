@@ -15,7 +15,7 @@ export class AvaloniaNewFileManager {
          );
     }
 
-    private createNewWindow() {
+    private createNewWindow(args: any[]) {
         
     }
 
