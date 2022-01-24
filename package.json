@@ -110,8 +110,48 @@
         "command": "Avalonia.VSCode.Extension.CreateNewCrossPlatformApp",
         "category": "Avalonia",
         "title": "Create Avalonia Cross Platform .NET Core Application"
+      },
+      {
+        "command": "Avalonia.VSCode.Extension.CreateNewWindow",
+        "category": "Avalonia",
+        "title": "New aXAML window"
+      },
+      {
+        "command": "Avalonia.VSCode.Extension.CreateUserControl",
+        "category": "Avalonia",
+        "title": "New user control"
+      },
+      {
+        "command": "Avalonia.VSCode.Extension.CreateStyleList",
+        "category": "Avalonia",
+        "title": "New style list"
+      },
+      {
+        "command": "Avalonia.VSCode.Extension.CreateResourceDictionary",
+        "category": "Avalonia",
+        "title": "New resource dictionary"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "group": "avaloniaGroup@1",
+          "command": "Avalonia.VSCode.Extension.CreateNewWindow"
+        },
+        {
+          "group": "avaloniaGroup@1",
+          "command": "Avalonia.VSCode.Extension.CreateUserControl"
+        },
+        {
+          "group": "avaloniaGroup@1",
+          "command": "Avalonia.VSCode.Extension.CreateStyleList"
+        },
+        {
+          "group": "avaloniaGroup@1",
+          "command": "Avalonia.VSCode.Extension.CreateResourceDictionary"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
