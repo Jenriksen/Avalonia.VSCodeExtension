@@ -32,6 +32,7 @@
     "onCommand:Avalonia.VSCode.Extension.CreateUserControl",
     "onCommand:Avalonia.VSCode.Extension.CreateStyleList",
     "onCommand:Avalonia.VSCode.Extension.CreateResourceDictionary",
+    "onCommand:Avalonia.VSCode.Extension.CreateTemplatedControl",
     "onView:avalonia-sidebar"
   ],
   "main": "./out/extension.js",
@@ -118,22 +119,27 @@
       {
         "command": "Avalonia.VSCode.Extension.CreateNewWindow",
         "category": "Avalonia",
-        "title": "New aXAML window"
+        "title": "Avalonia Window"
       },
       {
         "command": "Avalonia.VSCode.Extension.CreateUserControl",
         "category": "Avalonia",
-        "title": "New user control"
+        "title": "Avalonia User Control"
       },
       {
         "command": "Avalonia.VSCode.Extension.CreateStyleList",
         "category": "Avalonia",
-        "title": "New style list"
+        "title": "Avalonia Styles"
       },
       {
         "command": "Avalonia.VSCode.Extension.CreateResourceDictionary",
         "category": "Avalonia",
-        "title": "New resource dictionary"
+        "title": "Avalonia Resource Dictionary"
+      },
+      {
+        "command": "Avalonia.VSCode.Extension.CreateTemplatedControl",
+        "category": "Avalonia",
+        "title": "Avalonia Templated Control"
       }
     ],
     "menus": {
@@ -157,6 +163,11 @@
           "group": "avaloniaGroup@1",
           "when": "explorerResourceIsFolder == true",
           "command": "Avalonia.VSCode.Extension.CreateResourceDictionary"
+        },
+        {
+          "group": "avaloniaGroup@1",
+          "when": "explorerResourceIsFolder == true",
+          "command": "Avalonia.VSCode.Extension.CreateTemplatedControl"
         }
       ]
     }

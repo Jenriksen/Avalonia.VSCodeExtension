@@ -17,7 +17,7 @@ export class AvaloniaNewFileManager {
                 (args) => {
                     this.createAxamlWithNamespace(
                         args.path, 
-                        "Please enter aXAML window name",
+                        "Please enter the Avalonia Window name",
                         "newWindow.axaml",
                         "avalonia.window");
                 })
@@ -29,7 +29,7 @@ export class AvaloniaNewFileManager {
                     (args) => {
                         this.createAxamlWithNamespace(
                             args.path, 
-                            "Please enter aXAML user control name",
+                            "Please enter the Avalonia User Control name",
                             "newUserControl.axaml",
                             "avalonia.usercontrol");
                     })
@@ -41,7 +41,7 @@ export class AvaloniaNewFileManager {
                     (args) => {
                         this.createAxaml(
                             args.path, 
-                            "Please enter aXAML styles file",
+                            "Please enter the Avalonia Styles name",
                             "newStyle.axaml",
                             "avalonia.styles");
                     })
@@ -53,9 +53,21 @@ export class AvaloniaNewFileManager {
                     (args) => {
                         this.createAxaml(
                             args.path, 
-                            "Please enter aXAML resource dictionary file",
+                            "Please enter the Avalonia Resource Dictionary name",
                             "newResources.axaml",
                             "avalonia.resource");
+                    })
+                );
+
+            context.subscriptions.push(
+                vscode.commands.registerCommand(
+                    "Avalonia.VSCode.Extension.CreateTemplatedControl",
+                    (args) => {
+                        this.createAxamlWithNamespace(
+                            args.path, 
+                            "Please enter the Templated Control name",
+                            "newTemplateControl.axaml",
+                            "avalonia.templatedcontrol");
                     })
                 );
     }
