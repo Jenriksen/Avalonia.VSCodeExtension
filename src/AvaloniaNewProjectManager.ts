@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { CreateNewAppPanel } from './CreateNewAppPanel';
 import { CreateNewCrossAppPanel } from './CreateNewCrossAppPanel';
 import { CreateNewMvvmAppPanel } from './CreateNewMvvmAppPanel';
-import { ExecuteOnTerminal } from './ExecuteOnTerminal';
+import { DotNetManagement } from './dotNetManagement';
 
 export class AvaloniaNewProjectManager {
     public context: vscode.ExtensionContext | undefined;
@@ -101,8 +101,7 @@ export class AvaloniaNewProjectManager {
     }
 
     private async installAvaloniaTemplates() {
-        return await this.executeDotnetWithArgs(
-            "Install Avalonia Templates",
+        return await DotNetManagement.executeDotnetWithArgs(
             ["new", "--install", "Avalonia.Templates" ]);
     }
 
@@ -118,25 +117,9 @@ export class AvaloniaNewProjectManager {
         await this.installAvaloniaTemplates();
 
         var combinedProjectPath = path.join( projectPath, projectName);
-        await this.executeDotnetWithArgs(
-            "",
+        await DotNetManagement.executeDotnetWithArgs(
             ["new", avaloniaTemplateName, "-o", combinedProjectPath]);
 
         vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.file(combinedProjectPath), false);
-    }
-
-    private async executeDotnetWithArgs(actionDescription: string, args: string[]) {
-        var dotnetPath = await ExecuteOnTerminal.getDotnetPath();
-        if (dotnetPath === undefined)
-        {
-            vscode.window.showErrorMessage("'dotnet' command not installed in the system. Plase install 'dotnet' first.");
-            return false;
-        }
-
-        await ExecuteOnTerminal.executeCommand(
-            dotnetPath, 
-            args);
-
-        return true;
     }
 }

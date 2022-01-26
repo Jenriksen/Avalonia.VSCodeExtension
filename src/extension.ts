@@ -14,6 +14,7 @@ import {
     StreamInfo,
     createServerPipeTransport,
 } from "vscode-languageclient/node";
+import { AvaloniaNewFileManager } from './AvaloniaNewFileManager';
 
 let client: LanguageClient;
 
@@ -68,6 +69,9 @@ export function activate(context: vscode.ExtensionContext)
 
 	const projectManagementCommands = new AvaloniaProjectProvider();
 	vscode.window.registerTreeDataProvider("avalonia-sidebar", projectManagementCommands);
+
+	const newFileManagement = new AvaloniaNewFileManager();
+	newFileManagement.register(context);
 }
 
 export function deactivate() {}
