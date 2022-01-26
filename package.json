@@ -145,7 +145,7 @@
     "menus": {
       "explorer/context": [
         {
-          "group": "avaloniaGroup@1",
+          "group": "avaloniaGroup@2",
           "when": "explorerResourceIsFolder == true",
           "command": "Avalonia.VSCode.Extension.CreateNewWindow"
         },
@@ -155,17 +155,17 @@
           "command": "Avalonia.VSCode.Extension.CreateUserControl"
         },
         {
-          "group": "avaloniaGroup@1",
+          "group": "avaloniaGroup@3",
           "when": "explorerResourceIsFolder == true",
           "command": "Avalonia.VSCode.Extension.CreateStyleList"
         },
         {
-          "group": "avaloniaGroup@1",
+          "group": "avaloniaGroup@4",
           "when": "explorerResourceIsFolder == true",
           "command": "Avalonia.VSCode.Extension.CreateResourceDictionary"
         },
         {
-          "group": "avaloniaGroup@1",
+          "group": "avaloniaGroup@5",
           "when": "explorerResourceIsFolder == true",
           "command": "Avalonia.VSCode.Extension.CreateTemplatedControl"
         }
