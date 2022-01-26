@@ -28,6 +28,10 @@
     "onCommand:Avalonia.VSCode.Extension.CreateNewMvvmApp",
     "onCommand:Avalonia.VSCode.Extension.CreateNewAvaloniaApp",
     "onCommand:Avalonia.VSCode.Extension.CreateNewCrossPlatformApp",
+    "onCommand:Avalonia.VSCode.Extension.CreateNewWindow",
+    "onCommand:Avalonia.VSCode.Extension.CreateUserControl",
+    "onCommand:Avalonia.VSCode.Extension.CreateStyleList",
+    "onCommand:Avalonia.VSCode.Extension.CreateResourceDictionary",
     "onView:avalonia-sidebar"
   ],
   "main": "./out/extension.js",

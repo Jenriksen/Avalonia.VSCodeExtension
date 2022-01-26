@@ -15,18 +15,62 @@ export class AvaloniaNewFileManager {
             vscode.commands.registerCommand(
                 "Avalonia.VSCode.Extension.CreateNewWindow",
                 (args) => {
-                    this.createNewWindow(args.path);
+                    this.createAxamlWithNamespace(
+                        args.path, 
+                        "Please enter aXAML window name",
+                        "newWindow.axaml",
+                        "avalonia.window");
                 })
             );
+
+            context.subscriptions.push(
+                vscode.commands.registerCommand(
+                    "Avalonia.VSCode.Extension.CreateUserControl",
+                    (args) => {
+                        this.createAxamlWithNamespace(
+                            args.path, 
+                            "Please enter aXAML user control name",
+                            "newUserControl.axaml",
+                            "avalonia.usercontrol");
+                    })
+                );
+
+            context.subscriptions.push(
+                vscode.commands.registerCommand(
+                    "Avalonia.VSCode.Extension.CreateStyleList",
+                    (args) => {
+                        this.createAxaml(
+                            args.path, 
+                            "Please enter aXAML styles file",
+                            "newStyle.axaml",
+                            "avalonia.styles");
+                    })
+                );
+            
+            context.subscriptions.push(
+                vscode.commands.registerCommand(
+                    "Avalonia.VSCode.Extension.CreateResourceDictionary",
+                    (args) => {
+                        this.createAxaml(
+                            args.path, 
+                            "Please enter aXAML resource dictionary file",
+                            "newResources.axaml",
+                            "avalonia.resource");
+                    })
+                );
     }
 
-    private createNewWindow(folderUri: string) {
+    private createAxamlWithNamespace(
+        folderUri: string,
+        prompt: string,
+        defaultFileName: string,
+        avaloniaTemplate: string) {
 
         vscode.window
             .showInputBox({ 
                 ignoreFocusOut: true, 
-                prompt: "Please enter aXAML window name",
-                value: "newWindow.axaml" })
+                prompt: prompt,
+                value: defaultFileName })
             .then( async (newFileName) => {
 
                 if (newFileName === '') {
@@ -53,7 +97,7 @@ export class AvaloniaNewFileManager {
 
                 await DotNetManagement.executeDotnetWithArgs([
                     "new",
-                    "avalonia.window",
+                    avaloniaTemplate,
                     "-na",
                     namespace,
                     "-o",
@@ -70,4 +114,53 @@ export class AvaloniaNewFileManager {
             });
     }
 
+    private createAxaml(
+        folderUri: string,
+        prompt: string,
+        defaultFileName: string,
+        avaloniaTemplate: string) {
+
+        vscode.window
+            .showInputBox({ 
+                ignoreFocusOut: true, 
+                prompt: prompt,
+                value: defaultFileName })
+            .then( async (newFileName) => {
+
+                if (newFileName === '') {
+                    return;
+                }
+
+                let fullFilePath = folderUri + path.sep + newFileName;
+
+                if (fs.existsSync(fullFilePath)) {
+                    vscode.window.showErrorMessage("File " + newFileName + " already exists");
+                    return;
+                }
+
+                fullFilePath = NewFileUtils.correctFileExtension(fullFilePath, "axaml");
+
+                var projectRootDirectory = NewFileUtils.getProjectRootDirectory(fullFilePath);
+                if (projectRootDirectory === null)
+                {
+                    vscode.window.showErrorMessage("Unable to find project.json or *.csproj");
+                    return;
+                }
+
+                await DotNetManagement.executeDotnetWithArgs([
+                    "new",
+                    avaloniaTemplate,
+                    "-o",
+                    folderUri,
+                    "-n",
+                    path.parse(fullFilePath).name
+                ]);
+
+                vscode.workspace
+                    .openTextDocument(fullFilePath)
+                    .then((doc) => { 
+                        vscode.window.showTextDocument(doc);
+                     });
+            });
+    }
 }

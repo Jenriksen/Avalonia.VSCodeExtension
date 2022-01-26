@@ -7,10 +7,10 @@ import { AvaloniaProjectProvider } from './AvaloniaProjectProvider';
 import {
     LanguageClient,
     LanguageClientOptions,
-    SettingMonitor,
+	SettingMonitor,
     ServerOptions,
     TransportKind,
-    InitializeParams,
+	InitializeParams,
     StreamInfo,
     createServerPipeTransport,
 } from "vscode-languageclient/node";
@@ -22,6 +22,9 @@ export function activate(context: vscode.ExtensionContext)
 {
 	// Activate the Code-Completion
 	// AxamlCompletion.xamlActivate(context);
+
+	const newFileManagement = new AvaloniaNewFileManager();
+	newFileManagement.register(context);
 
 	let serverOptions: ServerOptions = {
 		run: {
@@ -69,9 +72,6 @@ export function activate(context: vscode.ExtensionContext)
 
 	const projectManagementCommands = new AvaloniaProjectProvider();
 	vscode.window.registerTreeDataProvider("avalonia-sidebar", projectManagementCommands);
-
-	const newFileManagement = new AvaloniaNewFileManager();
-	newFileManagement.register(context);
 }
 
 export function deactivate() {}
