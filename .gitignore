@@ -461,3 +461,5 @@ node_modules
 *.vsix
 
 *.log
+
+libs/

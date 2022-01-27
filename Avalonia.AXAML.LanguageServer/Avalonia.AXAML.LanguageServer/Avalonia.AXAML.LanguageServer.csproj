@@ -16,4 +16,17 @@
     <ProjectReference Include="..\Avalonia.Ide.CompletionEngine\Avalonia.Ide.CompletionEngine.csproj" />
     <ProjectReference Include="..\Avalonia.Ide.CompletionEngine.DnlibMetadataProvider\Avalonia.Ide.CompletionEngine.DnlibMetadataProvider.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <OutputFiles Include="$(OutputPath)\**\*.*" />
+  </ItemGroup>
+
+  <Target Name="CustomTaskAfterBuild" AfterTargets="AfterBuild">
+    <Copy 
+      SourceFiles="@(OutputFiles)"
+      DestinationFolder="..\..\libs" />
+
+    <Message Text="Output files copy to ..\..\libs" />
+  </Target>
+
 </Project>
