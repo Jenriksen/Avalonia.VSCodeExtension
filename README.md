@@ -10,7 +10,7 @@ This is the README for your extension "Avalonia.VSCodeExtension".
 
 :heavy_check_mark: XAML auto code completion 
 
- XAML Preview window
+ --> XAML Preview window
 
 ## How to run
 
