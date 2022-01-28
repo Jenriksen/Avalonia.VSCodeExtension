@@ -5,9 +5,9 @@ This is the README for your extension "Avalonia.VSCodeExtension".
 ## Features
 
 :heavy_check_mark: Create Avalonia .NET Core Projects: App, MVVM, CrossPlatform
-* Create Resources, Styles, TemplateControls, UserControl and Window
-* XAML auto code completion 
-* XAML Preview window
+:heavy_check_mark: Create Resources, Styles, TemplateControls, UserControl and Window
+:heavy_check_mark: XAML auto code completion 
+ XAML Preview window
 
 ## How to run
 
