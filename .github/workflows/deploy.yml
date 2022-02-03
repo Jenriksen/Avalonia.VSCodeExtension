@@ -24,3 +24,7 @@ jobs:
       - run: npm install
       - run: npm run deploy
           
+      - name: Publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@v1
+        with:
+          pat: ${{ secrets.OPEN_VSX }}
