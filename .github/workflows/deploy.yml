@@ -20,7 +20,7 @@ jobs:
       - name: Compile extensions
         uses: action/setup-node@v1
         with:
-          node-version: {{ env.node-version }}
+          node-version: 16
       - run: npm install
       - run: npm run deploy
           
