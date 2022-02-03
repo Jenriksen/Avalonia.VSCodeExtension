@@ -1,0 +1,32 @@
+# on:
+#   push:
+#     tags:
+#       - "*"
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  node-version: 16.x
+
+name: Deploy Extension
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+      - run: dotnet publish -c Release Avalonia.AXAML.LanguageServer/Avalonia.AXAML.LanguageServer 
+
+      - name: Compile extensions
+        uses: action/setup-node@v1
+        with:
+          node-version: {{ env.node-version }}
+      - run: npm install
+      - run: npm run deploy
+          
