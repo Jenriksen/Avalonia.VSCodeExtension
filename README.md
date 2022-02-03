@@ -1,7 +1,5 @@
 # Avalonia VSCode Extension README
 
-This is the README for your extension "Avalonia.VSCodeExtension". 
-
 ## Features
 
 :heavy_check_mark: Create Avalonia .NET Core Projects: App, MVVM, CrossPlatform
