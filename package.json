@@ -1,5 +1,5 @@
 {
-  "name": "avalonia.vscode.extension",
+  "name": "avalonia-vscode-extension",
   "displayName": "Avalonia.VSCode.Extension",
   "description": "Create projects using Avalonia templates; Avalonia AXAML code-completion.",
   "version": "0.0.1",
