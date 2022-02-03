@@ -1,11 +1,6 @@
 on:
   push:
-    tags:
-      - "*"
-
-# on:
-#   push:
-#     branches: [ main ]
+    branches: [ main ]
 
 env:
   node-version: 16.x
