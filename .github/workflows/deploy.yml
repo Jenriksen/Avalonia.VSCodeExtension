@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1
@@ -18,7 +18,7 @@ jobs:
       - run: dotnet publish -c Release Avalonia.AXAML.LanguageServer/Avalonia.AXAML.LanguageServer 
 
       - name: Compile extensions
-        uses: action/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: 16
       - run: npm install
