@@ -27,10 +27,10 @@ export function activate(context: vscode.ExtensionContext)
 	const newFileManagement = new AvaloniaNewFileManager();
 	newFileManagement.register(context);
 
-	var extension = vscode.extensions.getExtension("PauloAboimPinto.avalonia-vscode-extension");
+	var extension = vscode.extensions.getExtension("AvaloniaUI.avalonia-vscode-extension");
 
 	const dllPath = 
-		vscode.extensions.getExtension("PauloAboimPinto.avalonia-vscode-extension").extensionPath + 
+		vscode.extensions.getExtension("AvaloniaUI.avalonia-vscode-extension").extensionPath + 
 		path.sep + 
 		"Avalonia.AXAML.LanguageServer" +
 		path.sep + 
