@@ -2,7 +2,7 @@
   "name": "avalonia-vscode-extension",
   "displayName": "Avalonia.VSCode.Extension",
   "description": "Create projects using Avalonia templates; Avalonia AXAML code-completion.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "AvaloniaUI",
   "engines": {
     "vscode": "^1.63.0"
