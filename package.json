@@ -4,6 +4,7 @@
   "description": "Create projects using Avalonia templates; Avalonia AXAML code-completion.",
   "version": "0.0.2",
   "publisher": "AvaloniaUI",
+  "repository": "http://github.com/AvaloniaUI/Avalonia.VSCodeExtension",
   "engines": {
     "vscode": "^1.63.0"
   },

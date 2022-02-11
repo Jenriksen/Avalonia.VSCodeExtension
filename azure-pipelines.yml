@@ -1,0 +1,41 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'Avalonia.AXAML.LanguageServer/Avalonia.AXAML.LanguageServer'
+    arguments: '-c Release -o libs'
+    zipAfterPublish: false
+    modifyOutputPath: false
+    
+- task: Npm@1
+  inputs:
+    command: 'install'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'run deploy'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: './'
+    Contents: '*.vsix'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/artifacts'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts'
+    ArtifactName: 'vsix'
+    publishLocation: 'Container'
