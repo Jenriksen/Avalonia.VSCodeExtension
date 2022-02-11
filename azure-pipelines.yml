@@ -10,10 +10,32 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'Avalonia.AXAML.LanguageServer/Avalonia.AXAML.LanguageServer'
+    arguments: '-c Release -o libs'
+    zipAfterPublish: false
+    modifyOutputPath: false
+    
+- task: Npm@1
+  inputs:
+    command: 'install'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'run deploy'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: './'
+    Contents: '*.vsix'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/artifacts'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts'
+    ArtifactName: 'vsix'
+    publishLocation: 'Container'
