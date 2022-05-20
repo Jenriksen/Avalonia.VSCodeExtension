@@ -2,13 +2,13 @@
 
 ## Features
 
-[x] Create Avalonia .NET Core Projects: App, MVVM, CrossPlatform
+- [x] Create Avalonia .NET Core Projects: App, MVVM, CrossPlatform
 
-[x] Create Resources, Styles, TemplateControls, UserControl and Window
+- [x] Create Resources, Styles, TemplateControls, UserControl and Window
 
-[x] XAML auto code completion 
+- [x] XAML auto code completion 
 
-[ ] XAML Preview window
+- [ ] XAML Preview window
 
 ## How to run
 
