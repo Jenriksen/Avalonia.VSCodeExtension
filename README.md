@@ -2,15 +2,20 @@
 
 ## Features
 
-:heavy_check_mark: Create Avalonia .NET Core Projects: App, MVVM, CrossPlatform
+[x] Create Avalonia .NET Core Projects: App, MVVM, CrossPlatform
 
-:heavy_check_mark: Create Resources, Styles, TemplateControls, UserControl and Window
+[x] Create Resources, Styles, TemplateControls, UserControl and Window
 
-:heavy_check_mark: XAML auto code completion 
+[x] XAML auto code completion 
 
- --> XAML Preview window
+[ ] XAML Preview window
 
 ## How to run
+
+* Run NPM Install with
+```
+$ npm install
+```
 
 * Compile the Svetle JS code with command
 ```
