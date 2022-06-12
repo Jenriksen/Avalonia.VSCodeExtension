@@ -12,6 +12,11 @@
 
 ## How to run
 
+* Extract release archive or clone project into $HOME/.vscode/extensions/Avalonia.VSCodeExtension
+* Build Language Server with
+```
+$ dotnet build Avalonia.AXAML.LanguageServer/Avalonia.AXAML.LanguageServer
+```
 * Run NPM Install with
 ```
 $ npm install
@@ -20,6 +25,7 @@ $ npm install
 * Compile the Svetle JS code with command
 ```
 $ node_modules/.bin/rollup -c -w
+$ npm run compile
 ```
 
 * Press F5 in VSCode.
