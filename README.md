@@ -22,7 +22,7 @@ $ dotnet build Avalonia.AXAML.LanguageServer/Avalonia.AXAML.LanguageServer
 $ npm install
 ```
 
-* Compile the Svetle JS code with command
+* Compile the Svelte JS code with command
 ```
 $ node_modules/.bin/rollup -c -w
 $ npm run compile
